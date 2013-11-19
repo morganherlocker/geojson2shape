@@ -12,7 +12,7 @@ This module is a simple wrapper around ogr2ogr that takes a geojson file and out
 ```javascript
 var geojson2shape = require('geojson2shape')
 
-geojson2shape('./polygons.geojson', './polygons.shp', zip, function(err){
+geojson2shape('./polygons.geojson', './polygons.shp', function(err){
   if(err) throw err
 })
 ```
