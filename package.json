@@ -1,6 +1,6 @@
 {
   "name": "geojson2shape",
-  "version": "0.1.1",
+  "version": "0.2.1",
   "description": "a module for converting a geojson file to a shape file",
   "main": "index.js",
   "repository": {
@@ -20,8 +20,5 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/morganherlocker/geojson2shape/issues"
-  },
-  "dependencies": {
-    "archiver"
   }
 }

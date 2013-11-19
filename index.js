@@ -1,7 +1,8 @@
 var exec = require('child_process').exec,
     path = require('path'),
     archiver = require('archiver'),
-    fs = require('fs')
+    fs = require('fs'),
+    async = require('async')
 
 module.exports = function(inPath, outPath, zip, done){
   var ogrCommand = 'ogr2ogr -f "ESRI Shapefile" '+path.resolve(process.cwd()+'/'+outPath)+ ' '+
@@ -28,7 +29,24 @@ module.exports = function(inPath, outPath, zip, done){
         .append(fs.createReadStream(file4), { name: path.basename(file4) });
 
       archive.finalize(function(err, bytes) {
-        done(err)
+        async.parallel([
+          function(callback){
+            fs.unlink(file1, function(){callback()})
+          },
+          function(callback){
+            fs.unlink(file2, function(){callback()})
+          },
+          function(callback){
+            fs.unlink(file3, function(){callback()})
+          },
+          function(callback){
+            fs.unlink(file4, function(){callback()})
+          }
+        ],
+        function(err){
+          console.log(err)
+          done(err)
+        })
       })
     }
     else{
