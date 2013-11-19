@@ -1,6 +1,12 @@
+var exec = require('child_process').exec,
+    path = require('path')
+
 module.exports = function(inPath, outPath, done){
-  exec('ogr2ogr -f "ESRI Shapefile" '+__dirname+'/'+outPath+ ' '+
-        __dirname+'/'+inPath, function(err, stdout, stderr){
+  var ogrCommand = 'ogr2ogr -f "ESRI Shapefile" '+path.resolve(process.cwd()+'/'+outPath)+ ' '+
+                    path.resolve(process.cwd()+'/'+inPath)+ ' '+
+                    '-overwrite'
+
+  exec(ogrCommand, function(err, stdout, stderr){
     done(err)
   })
 }
