@@ -11,8 +11,6 @@ This module is a simple wrapper around ogr2ogr that takes a geojson file and out
 
 ```javascript
 var geojson2shape = require('geojson2shape')
-// A shape file is actually several files. If specified, geojson2shape will zip these files for you.
-var zip = true
 
 geojson2shape('./polygons.geojson', './polygons.shp', zip, function(err){
   if(err) throw err
