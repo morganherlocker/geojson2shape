@@ -5,23 +5,22 @@ var exec = require('child_process').exec,
     async = require('async')
 
 module.exports = function(inPath, outPath, zip, done){
-  var ogrCommand = 'ogr2ogr -f "ESRI Shapefile" '+path.resolve(process.cwd()+'/'+outPath)+ ' '+
-                    path.resolve(process.cwd()+'/'+inPath)+ ' '+
+  var ogrCommand = 'ogr2ogr -f "ESRI Shapefile" '+outPath+ ' '+inPath+ ' '+
                     '-overwrite'
 
   exec(ogrCommand, function(err, stdout, stderr){
     if(zip){
-      var output = fs.createWriteStream(path.resolve(process.cwd()+'/'+outPath).slice(0, -4) + '.zip')
+      var output = fs.createWriteStream(outPath.slice(0, -4) + '.zip')
       var archive = archiver('zip');
       archive.on('error', function(err) {
         done(err);
       });
 
       archive.pipe(output);
-      var file1 = path.resolve(process.cwd()+'/'+outPath).slice(0, -4) + '.dbf'
-      var file2 = path.resolve(process.cwd()+'/'+outPath).slice(0, -4) + '.prj'
-      var file3 = path.resolve(process.cwd()+'/'+outPath).slice(0, -4) + '.shp'
-      var file4 = path.resolve(process.cwd()+'/'+outPath).slice(0, -4) + '.shx'
+      var file1 = outPath.slice(0, -4) + '.dbf'
+      var file2 = outPath.slice(0, -4) + '.prj'
+      var file3 = outPath.slice(0, -4) + '.shp'
+      var file4 = outPath.slice(0, -4) + '.shx'
       archive
         .append(fs.createReadStream(file1), { name: path.basename(file1) })
         .append(fs.createReadStream(file2), { name: path.basename(file2) })
@@ -44,7 +43,6 @@ module.exports = function(inPath, outPath, zip, done){
           }
         ],
         function(err){
-          console.log(err)
           done(err)
         })
       })
