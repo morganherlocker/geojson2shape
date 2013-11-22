@@ -1,6 +1,6 @@
 {
   "name": "geojson2shape",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "a module for converting a geojson file to a shape file",
   "main": "index.js",
   "repository": {
